@@ -41,7 +41,7 @@ jobs:
         go build -ldflags="$ldflags" -o "porthog_${{ matrix.goos }}_${{ matrix.goarch }}" .
 
     - name: Upload binaries
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: porthog-${{ matrix.goos }}-${{ matrix.goarch }}
         path: porthog_${{ matrix.goos }}_${{ matrix.goarch}}

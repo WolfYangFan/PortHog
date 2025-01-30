@@ -1,5 +1,38 @@
 # PortHog 🐖
 
+<p align="center">
+  <img
+    src="https://img.shields.io/github/last-commit/WolfYangFan/PortHog.svg?style=for-the-badge"
+  />
+  <img
+    src="https://img.shields.io/github/issues-pr-closed/WolfYangFan/PortHog.svg?style=for-the-badge"
+  />
+  <img
+    src="https://img.shields.io/github/commit-activity/w/WolfYangFan/PortHog?style=for-the-badge"
+  />
+  <br />
+  <img
+    src="https://img.shields.io/github/languages/code-size/WolfYangFan/PortHog.svg?style=for-the-badge"
+  />
+  <img
+    src="https://img.shields.io/github/repo-size/WolfYangFan/PortHog?style=for-the-badge"
+  />
+  <img
+    src="https://img.shields.io/github/languages/count/WolfYangFan/PortHog?style=for-the-badge"
+  />
+  <img
+    src="https://img.shields.io/github/languages/top/WolfYangFan/PortHog?style=for-the-badge"
+  />
+  <img
+    src="https://img.shields.io/github/issues/WolfYangFan/PortHog?style=for-the-badge"
+  />
+  <img
+    src="https://img.shields.io/github/issues-closed-raw/WolfYangFan/PortHog?style=for-the-badge"
+  />
+  <br />
+  ⭐️ Your Star is very important for me!
+</p>
+
 A minimalist port occupier that aggressively holds TCP ports for testing and development purposes.
 
 Perfect for reserving ports during CI/CD pipelines or local environment setup.
@@ -22,15 +55,17 @@ Perfect for reserving ports during CI/CD pipelines or local environment setup.
 go install github.com/WolfYangFan/PortHog@latest
 ```
 
+or use [Github Actions Artifact](https://github.com/WolfYangFan/PortHog/actions)
+
 ## Usage 💻
 
-### Basic Syntax
+### Basic
 
 ```bash
 porthog -p PORT_SPEC
 ```
 
-### Examples
+### Examples 
 
 ```bash
 # Single port + range combination
@@ -54,11 +89,13 @@ porthog -p 3000-3010 --level debug
 ## Technical Details 🔧
 
 ### Port Handling
+
 - Uses raw TCP listeners with `SO_REUSEADDR`
 - Immediate connection reset (SO_LINGER=0)
 - Background goroutine per port
 
 ### Signal Handling
+
 ```mermaid
 graph TD
     A[SIGINT/SIGTERM] --> B{Active Listeners?}
@@ -70,11 +107,11 @@ graph TD
 
 ## Contributing 🤝
 
-1. Fork the repository  
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)  
-3. Commit changes (`git commit -m 'Add amazing feature'`)  
-4. Push to branch (`git push origin feature/amazing-feature`)  
-5. Open a Pull Request  
+1. Fork [this repository](https://git.213891.xyz/WolfYangFan/PortHog)
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 Please follow our [Code of Conduct](CODE_OF_CONDUCT.md).
 

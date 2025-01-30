@@ -1,0 +1,48 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        goos: [linux, windows, darwin]
+        goarch: [amd64, arm64]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.22.0'
+
+    - name: Build binary for ${{ matrix.goos }}/${{ matrix.goarch }}
+      run: |
+        export GOOS=${{ matrix.goos }}
+        export GOARCH=${{ matrix.goarch }}
+        version="gh-actions"
+        appName="PortHog"
+        builtAt="$(date +'%F %T %z')"
+        gitCommit=$(git log --pretty=format:"%h" -1)
+        ldflags="\
+        -w -s \
+        -X 'main.AppName=$appName' \
+        -X 'main.BuiltAt=$builtAt' \
+        -X 'main.GitCommit=$gitCommit' \
+        -X 'main.Version=$version' \
+        "
+        go build -ldflags="$ldflags" -o "porthog_${{ matrix.goos }}_${{ matrix.goarch }}" .
+
+    - name: Upload binaries
+      uses: actions/upload-artifact@v3
+      with:
+        name: porthog-${{ matrix.goos }}-${{ matrix.goarch }}
+        path: porthog_${{ matrix.goos }}_${{ matrix.goarch}}
+        if-no-files-found: ignore

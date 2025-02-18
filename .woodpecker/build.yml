@@ -1,0 +1,27 @@
+steps:
+  - name: build-binaries
+    image: golang:1.22.0
+    matrix:
+      GOOS: [linux, darwin]
+      GOARCH: [amd64, arm64]
+    commands:
+      - mkdir -p ./artifacts
+      - export GOOS=${GOOS}
+      - export GOARCH=${GOARCH}
+      - version="woodpecker"
+      - appName="PortHog"
+      - builtAt="$(date +'%F %T %z')"
+      - gitCommit=$(git log --pretty=format:"%h" -1)
+      - ldflags="-w -s -X 'main.AppName=$appName' -X 'main.BuiltAt=$builtAt' -X 'main.GitCommit=$gitCommit' -X 'main.Version=$version'"
+      - go build -ldflags="$ldflags" -o "./artifacts/porthog_${GOOS}_${GOARCH}" .
+    when:
+      event: [ push, tag, manual ]
+
+  - name: test-file
+    image: alpine:latest
+    commands:
+      - cd artifacts
+      - du -sh *
+      - ls -all
+    when:
+      event: [ push, tag, manual ]

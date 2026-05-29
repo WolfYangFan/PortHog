@@ -1,0 +1,31 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+porthog
+porthog.exe
+
+# Build artifacts
+artifacts/
+porthog_*
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace
+*.work
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+*.md
+!README.md
